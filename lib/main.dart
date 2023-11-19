@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:raft/config/app_color.dart';
 import 'package:raft/config/app_constants.dart';
 import 'package:raft/config/app_theme.dart';
 import 'features/auth/screens/splash.dart';

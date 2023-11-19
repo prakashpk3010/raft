@@ -4,18 +4,20 @@ import 'package:raft/config/app_dimensions.dart';
 
 import '../config/app_color.dart';
 
-class CustomTextfield extends StatefulWidget {
+class CustomTextfield extends StatelessWidget {
   final List<TextInputFormatter>? formatters;
   final String? hint;
+  final Widget? suffixIcon;
   final TextEditingController? controller;
+  final int? maxLines;
   const CustomTextfield(
-      {super.key, this.hint = '', this.controller, this.formatters});
+      {super.key,
+      this.hint = '',
+      this.controller,
+      this.formatters,
+      this.suffixIcon,
+      this.maxLines = 1});
 
-  @override
-  State<CustomTextfield> createState() => _CustomTextfieldState();
-}
-
-class _CustomTextfieldState extends State<CustomTextfield> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,7 +29,8 @@ class _CustomTextfieldState extends State<CustomTextfield> {
             AppRadius.radius,
           )),
       child: TextFormField(
-        inputFormatters: widget.formatters,
+        maxLines: maxLines,
+        inputFormatters: formatters,
         textAlign: TextAlign.left,
         textAlignVertical: TextAlignVertical.center,
         style: const TextStyle(
@@ -35,6 +38,7 @@ class _CustomTextfieldState extends State<CustomTextfield> {
           letterSpacing: 1.5,
         ),
         decoration: InputDecoration(
+            suffixIcon: suffixIcon,
             hintMaxLines: 1,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppRadius.radius),

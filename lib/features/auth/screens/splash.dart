@@ -39,7 +39,7 @@ class _MyHomePageState extends State<SplashScreen> {
             Icon(
               Icons.diversity_1_rounded,
               size: 50,
-              color: AppColor.primaryColor,
+              color: AppColor.secondaryColor,
             ),
             Text(
               AppConstants.appname,
