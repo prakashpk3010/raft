@@ -10,13 +10,19 @@ class CustomButton extends StatelessWidget {
   final double? height;
   final double? fontsize;
   final VoidCallback onTap;
+  final Color? color;
+  final bool? border;
+  final Color? textcolor;
   const CustomButton(
       {super.key,
       required this.text,
       this.width,
       this.height = 50,
       this.fontsize = 14,
-      required this.onTap});
+      required this.onTap,
+      this.color,
+      this.border = false,
+      this.textcolor});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +33,9 @@ class CustomButton extends StatelessWidget {
         height: height,
         width: width,
         decoration: BoxDecoration(
-          color: AppColor.primaryColor,
+          border:
+              Border.all(color: border! ? Colors.black : Colors.transparent),
+          color: color ?? AppColor.primaryColor,
           borderRadius: BorderRadius.circular(
             AppRadius.radius,
           ),
@@ -36,7 +44,7 @@ class CustomButton extends StatelessWidget {
           child: Text(
             text.toUpperCase(),
             style: AppStyle.bodyFont.copyWith(
-              color: AppColor.light,
+              color: textcolor ?? AppColor.light,
               fontSize: fontsize,
               fontWeight: FontWeight.bold,
             ),

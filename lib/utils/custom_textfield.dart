@@ -10,19 +10,21 @@ class CustomTextfield extends StatelessWidget {
   final Widget? suffixIcon;
   final TextEditingController? controller;
   final int? maxLines;
+  final double? height;
   const CustomTextfield(
       {super.key,
       this.hint = '',
       this.controller,
       this.formatters,
       this.suffixIcon,
-      this.maxLines = 1});
+      this.maxLines = 1,
+      this.height});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(bottom: 15),
-      height: 50,
+      height: height,
       decoration: BoxDecoration(
           color: AppColor.primaryColor.withOpacity(0.1),
           borderRadius: BorderRadius.circular(

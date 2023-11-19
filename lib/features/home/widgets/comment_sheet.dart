@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:raft/config/app_color.dart';
 import 'package:raft/config/app_dimensions.dart';
 import 'package:raft/utils/custom_textfield.dart';
+import '../../../config/app_asset.dart';
 import '../../../config/app_fonts_style.dart';
 
 class CommentSheet extends StatefulWidget {
@@ -12,6 +13,20 @@ class CommentSheet extends StatefulWidget {
 }
 
 class _PostContainerState extends State<CommentSheet> {
+  List images = [
+    AppAsset.image1,
+    AppAsset.image2,
+    AppAsset.image3,
+    AppAsset.image4,
+    AppAsset.image1,
+  ];
+  List name = [
+    'Frreky_Kid',
+    'Terror_Boy_sandy',
+    'PraKash',
+    'Titan_sathish',
+    'Virat_Kohli',
+  ];
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -67,8 +82,8 @@ class _PostContainerState extends State<CommentSheet> {
                     contentPadding: const EdgeInsets.all(5),
                     leading: ClipRRect(
                       borderRadius: BorderRadius.circular(500),
-                      child: Image.network(
-                        'https://gumlet.assettype.com/filmcompanion%2F2022-11%2F930182b8-0fc6-4ed3-9d16-7f71e256a987%2Fashok.png?format=auto',
+                      child: Image.asset(
+                        images[index],
                         height: 35,
                         width: 35,
                         fit: BoxFit.cover,
@@ -77,7 +92,7 @@ class _PostContainerState extends State<CommentSheet> {
                       ),
                     ),
                     title: Text(
-                      'Prakash PK',
+                      name[index],
                       style: AppStyle.subFont,
                     ),
                     subtitle: Text(
@@ -86,10 +101,11 @@ class _PostContainerState extends State<CommentSheet> {
                     ),
                   );
                 },
-                itemCount: 10,
+                itemCount: name.length,
               ),
             ),
             CustomTextfield(
+              height: 50,
               hint: 'Add Comments',
               suffixIcon: IconButton(
                 onPressed: () {

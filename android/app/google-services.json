@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1048232108520",
+    "project_id": "raftconnectapp",
+    "storage_bucket": "raftconnectapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048232108520:android:b9fd4bcd3b9e4f70b2c45d",
+        "android_client_info": {
+          "package_name": "com.example.raft"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkrNbTbj-yqK7ZmaJ_W6BHzTF7bQqAQ68"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

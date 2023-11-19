@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:raft/config/app_dimensions.dart';
 import 'package:raft/features/auth/screens/verify_otp.dart';
 import 'package:raft/utils/custom_button.dart';
 import 'package:raft/utils/custom_textfield.dart';
+import 'package:raft/utils/log.dart';
 import '../../../config/app_color.dart';
 import '../../../config/app_constants.dart';
 import '../../../config/app_fonts_style.dart';
@@ -62,16 +64,34 @@ class _LogInScreenState extends State<LogInScreen> {
           AppSpacer().spacerH10,
           CustomTextfield(
             formatters: [FilteringTextInputFormatter.digitsOnly],
+            height: 50,
           ),
           AppSpacer().spacerH20,
           CustomButton(
               text: 'GET Otp',
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const VerifyOtp(),
-                    ));
+              onTap: () async {
+                try {
+                  UserCredential userCredential = await FirebaseAuth.instance
+                      .createUserWithEmailAndPassword(
+                    email: 'prakash3010k@gmail.com',
+                    password: '123',
+                  );
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == 'weak-password') {
+                    kLog('weakPassword');
+                  } else if (e.code == 'email-alredy-in-use') {
+                    kLog('already exist');
+                  } else {
+                    kLog(e.code);
+                  }
+                } catch (e) {
+                  kLog(e);
+                }
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => const VerifyOtp(),
+                //     ));
               }),
           AppSpacer().spacerH20,
           if (!isRegister) ...[
