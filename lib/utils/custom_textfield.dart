@@ -11,6 +11,7 @@ class CustomTextfield extends StatelessWidget {
   final TextEditingController? controller;
   final int? maxLines;
   final double? height;
+  final String? Function(String?)? validator;
   const CustomTextfield(
       {super.key,
       this.hint = '',
@@ -18,20 +19,20 @@ class CustomTextfield extends StatelessWidget {
       this.formatters,
       this.suffixIcon,
       this.maxLines = 1,
-      this.height});
+      this.height,
+      this.validator});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 15),
-      height: height,
       decoration: BoxDecoration(
-          color: AppColor.primaryColor.withOpacity(0.1),
           borderRadius: BorderRadius.circular(
-            AppRadius.radius,
-          )),
+        AppRadius.radius,
+      )),
       child: TextFormField(
-        maxLines: maxLines,
+        controller: controller,
+        validator: validator,
+        maxLines: maxLines ?? 1,
         inputFormatters: formatters,
         textAlign: TextAlign.left,
         textAlignVertical: TextAlignVertical.center,
@@ -42,6 +43,8 @@ class CustomTextfield extends StatelessWidget {
         decoration: InputDecoration(
             suffixIcon: suffixIcon,
             hintMaxLines: 1,
+            filled: true,
+            fillColor: AppColor.primaryColor.withOpacity(0.1),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppRadius.radius),
               borderSide: const BorderSide(

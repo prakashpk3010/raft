@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:raft/config/app_color.dart';
 import 'package:raft/config/app_constants.dart';
 import 'package:raft/config/app_dimensions.dart';
 import 'package:raft/config/app_fonts_style.dart';
+import 'package:raft/features/auth/screens/log_in.dart';
 import 'package:raft/features/home/widgets/add_post.dart';
 import 'package:raft/features/home/widgets/comment_sheet.dart';
 import 'package:raft/features/home/widgets/share_list.dart';
@@ -10,6 +12,7 @@ import 'package:raft/utils/custom_button.dart';
 import 'package:raft/utils/loader.dart';
 import 'package:raft/utils/log.dart';
 import 'package:raft/utils/toast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -40,10 +43,25 @@ class _HomeScreenState extends State<HomeScreen> {
         toolbarHeight: 70,
         leadingWidth: 60,
         actions: [
-          Icon(
-            Icons.notifications_none_rounded,
-            color: AppColor.primaryColor,
-            size: 30,
+          InkWell(
+            onTap: () async {
+              final SharedPreferences prefs =
+                  await SharedPreferences.getInstance();
+              prefs.setString('id', '');
+              FirebaseAuth.instance.signOut();
+              // ignore: use_build_context_synchronously
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LogInScreen(),
+                  ),
+                  (route) => false);
+            },
+            child: Icon(
+              Icons.logout,
+              color: AppColor.primaryColor,
+              size: 30,
+            ),
           ),
           AppSpacer().spacerw10,
           ClipRRect(
