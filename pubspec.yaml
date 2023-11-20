@@ -41,6 +41,7 @@ dependencies:
   firebase_storage: ^11.5.1
   shared_preferences: ^2.2.2
   graphql_flutter: ^5.1.2
+  http: ^0.13.6
 
 dev_dependencies:
   flutter_test:

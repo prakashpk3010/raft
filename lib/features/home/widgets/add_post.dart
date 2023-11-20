@@ -1,9 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:raft/config/app_color.dart';
 import 'package:raft/config/app_fonts_style.dart';
 import 'package:raft/utils/custom_button.dart';
+import 'package:raft/utils/dialog_loader.dart';
+import 'package:raft/utils/log.dart';
 import 'package:raft/utils/toast.dart';
 import '../../../config/app_dimensions.dart';
 import '../../../utils/custom_textfield.dart';
@@ -27,6 +31,8 @@ class _PostContainerState extends State<AddPost> {
     });
   }
 
+  final descCtrl = TextEditingController();
+
   List tagList = [];
   @override
   Widget build(BuildContext context) {
@@ -40,7 +46,6 @@ class _PostContainerState extends State<AddPost> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              AppSpacer().spacerH20,
               AppBar(
                 backgroundColor: Colors.transparent,
                 leading: IconButton(
@@ -55,7 +60,6 @@ class _PostContainerState extends State<AddPost> {
                       .copyWith(color: AppColor.primaryColor),
                 ),
               ),
-              AppSpacer().spacerH20,
               const Text(
                 'Add Media',
               ),
@@ -126,46 +130,55 @@ class _PostContainerState extends State<AddPost> {
               AppSpacer().spacerH20,
               const Text('Description'),
               AppSpacer().spacerH10,
-              const CustomTextfield(
-                maxLines: 3,
+              CustomTextfield(
+                controller: descCtrl,
+                maxLines: 2,
                 hint: 'Add Description',
               ),
-              const Spacer(),
-              CustomButton(
-                  text: 'Post',
-                  onTap: () {
-                    showDialog(
-                      barrierColor: AppColor.light.withOpacity(0.5),
-                      context: context,
-                      builder: (context) {
-                        return SimpleDialog(
-                          backgroundColor: Colors.transparent,
-                          elevation: 0,
-                          title: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                const LinearProgressIndicator(minHeight: 1),
-                                AppSpacer().spacerH10,
-                                Text(
-                                  'Uploading',
-                                  style: AppStyle.bodyFont,
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                    Future.delayed(
-                      const Duration(seconds: 3),
-                      () {
-                        toast('Post Updated Successfully');
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      },
-                    );
-                  }),
+              AppSpacer().spacerH20,
+              Mutation(
+                options: MutationOptions(
+                  update: (cache, result) {
+                    kLog(result!.exception);
+                  },
+                  document: gql(uploadImage),
+                  variables: {
+                    "files": [image]
+                  },
+                  onError: (error) {
+                    kLog(error);
+                    toast('Failed to upload');
+                  },
+                  onCompleted: (data) {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    kLog(data);
+                  },
+                ),
+                builder:
+                    (RunMutation runMutation, QueryResult<Object?>? result) {
+                  return CustomButton(
+                      text: 'Post',
+                      onTap: () async {
+                        showLoader(context);
+                        try {
+                          var multipartFile = MultipartFile.fromString(
+                            'files',
+                            image!.path,
+                            filename: '${DateTime.now().second}.jpg',
+                          );
+                          runMutation(<String, dynamic>{
+                            "files": multipartFile,
+                            "desc": descCtrl.text,
+                            "tags": tagList.join().toString(),
+                          });
+                        } catch (e) {
+                          /// off loader
+                          Navigator.pop(context);
+                        }
+                      });
+                },
+              ),
             ],
           ),
         ),
@@ -173,3 +186,12 @@ class _PostContainerState extends State<AddPost> {
     );
   }
 }
+
+const uploadImage = """
+mutation(\$files: [Upload!]!) {
+  multipleUpload(files: \$files) {
+    desc
+    tags
+  }
+}
+""";

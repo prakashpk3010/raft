@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:raft/config/app_dimensions.dart';
 import 'package:raft/features/home/screens/home_screen.dart';
 import 'package:raft/utils/custom_button.dart';
