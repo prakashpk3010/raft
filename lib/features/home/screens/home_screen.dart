@@ -183,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             FadeInImage.assetNetwork(
                                 placeholder: AppAsset.image5,
-                                image: images[index]),
+                                image: images[index],),
                             Row(
                               children: [
                                 TextButton.icon(

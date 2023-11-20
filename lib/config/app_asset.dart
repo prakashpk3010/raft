@@ -5,7 +5,7 @@ class AppAsset {
   static String image3 = 'assets/images/3.jpeg';
   static String image4 = 'assets/images/4.jpeg';
   static String image5 =
-      'https://media.istockphoto.com/id/1147521090/photo/empty-white-studio-room-abstract-background.webp?b=1&s=170667a&w=0&k=20&c=qIL0XrSQi0fjnzyd1QsrtOCUdBmHvU8AhCwr_cxmofg=';
+      'https://www.vuescript.com/wp-content/uploads/2018/11/Show-Loader-During-Image-Loading-vue-load-image.png';
   static String image6 =
       'https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w1200/2023/10/free-images.jpg';
 
