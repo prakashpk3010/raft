@@ -1,3 +1,4 @@
+///Assets Images Orginized Class
 class AppAsset {
   static String image1 = 'assets/images/1.jpeg';
   static String image2 = 'assets/images/2.jpeg';

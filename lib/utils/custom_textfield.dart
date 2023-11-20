@@ -4,6 +4,8 @@ import 'package:raft/config/app_dimensions.dart';
 
 import '../config/app_color.dart';
 
+///Customized Textfield for this app
+///You can edit or update as modification needed
 class CustomTextfield extends StatelessWidget {
   final List<TextInputFormatter>? formatters;
   final String? hint;

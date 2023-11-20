@@ -4,6 +4,8 @@ import '../config/app_color.dart';
 import '../config/app_dimensions.dart';
 import '../config/app_fonts_style.dart';
 
+///Customized Button for this app
+///You can edit or update as modification needed
 class CustomButton extends StatelessWidget {
   final String text;
   final double? width;

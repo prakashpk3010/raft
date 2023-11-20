@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+///Fontstyle Orginized Class
 class AppStyle {
   static TextStyle headingFont = const TextStyle(
     fontSize: 18,

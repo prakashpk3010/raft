@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
+///Paddings Orginized Class
 class AppPadding {
   static double screenPadding = 10;
   static double chipPadding = 6;
   static double cardPadding = 4;
 }
 
+///Radius Orginized Class
 class AppRadius {
   static double radius = 15;
 }
 
+///Spacing Orginized Class
 class AppSpacer {
   SizedBox spacerH10 = const SizedBox(
     height: 10,

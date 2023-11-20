@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
 import '../config/app_color.dart';
-import '../config/app_dimensions.dart';
-import '../config/app_fonts_style.dart';
 
+///Loads when getting data from the server.
 class DialogLoader extends StatelessWidget {
   const DialogLoader({super.key});
 
@@ -25,11 +23,13 @@ class DialogLoader extends StatelessWidget {
   }
 }
 
+///Loads when getting data from the server.
+///You can just use pop to close this loader.
 showLoader(BuildContext context) {
   showDialog(
       barrierColor: AppColor.light.withOpacity(0.5),
       context: context,
       builder: (context) {
-        return DialogLoader();
+        return const DialogLoader();
       });
 }
